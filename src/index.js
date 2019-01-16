@@ -23,15 +23,22 @@ const getPlaylist = async (playlistName) => {
     }
     const songs = [];
     for (const song of playlist.songs) {
-        const data = await request_p({
-            url: `https://beatsaver.com/api/songs/detail/${song.key}`,
-            json: true
-        })
-        songs.push({
-            Key: data.song.key,
-            name: data.song.name,
-            HashMD5: data.song.hashMd5,
-        })
+        try {
+            const data = await request_p({
+                url: `https://beatsaver.com/api/songs/detail/${song.key}`,
+                json: true
+            })
+            songs.push({
+                Key: data.song.key,
+                Name: data.song.name,
+                HashMD5: data.song.hashMd5,
+            })
+        } catch(err) {
+            if (err.response.body.message) {
+                console.warn(`Couldn't fetch ${song.songName || song.name || song.Name}[${song.key || song.Key}]:`, err.response.body.message);
+            }
+            continue;
+        }
     }
     return {
         settings: {
