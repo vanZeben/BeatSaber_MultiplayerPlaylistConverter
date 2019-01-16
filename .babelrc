@@ -1,0 +1,13 @@
+{
+    "presets": [
+      ["@babel/preset-env", {
+        "targets": {
+          "browsers": [">0.2%"]
+        },
+        "modules": "commonjs",
+        "useBuiltIns": "usage"
+      }]
+    ],
+    "ignore": ["node_modules"],
+    "plugins": ["@babel/plugin-transform-regenerator"]
+  }
