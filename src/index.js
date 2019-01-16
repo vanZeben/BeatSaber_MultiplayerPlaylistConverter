@@ -30,9 +30,9 @@ const getPlaylist = async (playlistName) => {
             })
             songs.push({
                 Key: data.song.key,
-                Name: data.song.name,
-                HashMD5: data.song.hashMd5,
-            })
+                Name: `${data.song.songName} ${data.song.songSubName}`,
+                HashMD5: `${data.song.hashMd5}`.toUpperCase(),
+            });
         } catch(err) {
             if (err.response.body.message) {
                 console.warn(`Couldn't fetch ${song.songName || song.name || song.Name}[${song.key || song.Key}]:`, err.response.body.message);
